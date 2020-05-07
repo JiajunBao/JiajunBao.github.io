@@ -105,9 +105,9 @@ Padded with bounding boxes (-1, -1, -1, -1, -1) to enable batch loading. (You ma
 <pre><code>/usr/local/lib/python3.6/dist-packages/ipykernel_launcher.py:33: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># visualize GT boxes</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(img_list)):</span><br><span class="line">  valid_box = sum([<span class="number">1</span> <span class="keyword">if</span> j != <span class="number">-1</span> <span class="keyword">else</span> <span class="number">0</span> <span class="keyword">for</span> j <span class="keyword">in</span> box_list[i][:, <span class="number">0</span>]])</span><br><span class="line">  data_visualizer(img_list[i], idx_to_class, box_list[i][:valid_box])</span><br></pre></td></tr></table></figure>
 
 
-<p><img src="output_19_0.png" alt="png"></p>
-<p><img src="output_19_1.png" alt="png"></p>
-<p><img src="output_19_2.png" alt="png"></p>
+<p><img src="source/images/output_19_0.png" alt="png"></p>
+<p><img src="source/images/output_19_1.png" alt="png"></p>
+<p><img src="source/images/output_19_2.png" alt="png"></p>
 <h1 id="Region-Proposal-Networks-RPN"><a href="#Region-Proposal-Networks-RPN" class="headerlink" title="Region Proposal Networks (RPN)"></a>Region Proposal Networks (RPN)</h1><p>The first stage in a Faster R-CNN object detector is the <em>Region Proposal Network (RPN)</em>. The RPN classifies a set of anchors as either containing an object or not, and also regresses from the position of the anchor box to a region proposal.</p>
 <p>The RPN is very similar to the single-stage detector we built in the previous notebook, except that it will not predict classification scores. We can therefore reuse many of the functions from the previous notebook in order to implement the RPN.</p>
 <h2 id="Anchor"><a href="#Anchor" class="headerlink" title="Anchor"></a>Anchor</h2><p>We will use the exact same set of anchors as in the single-stage detector from the previous notebook.</p>
@@ -130,14 +130,14 @@ class prob error:  0</code></pre><figure class="highlight python"><table><tr><td
 
 <pre><code>********************************************************************************
 Activated (positive) anchors:
-1 activated anchors!</code></pre><p><img src="output_26_1.png" alt="png"></p>
-<pre><code>5 activated anchors!</code></pre><p><img src="output_26_3.png" alt="png"></p>
-<pre><code>2 activated anchors!</code></pre><p><img src="output_26_5.png" alt="png"></p>
+1 activated anchors!</code></pre><p><img src="source/images/output_26_1.png" alt="png"></p>
+<pre><code>5 activated anchors!</code></pre><p><img src="source/images/output_26_3.png" alt="png"></p>
+<pre><code>2 activated anchors!</code></pre><p><img src="source/images/output_26_5.png" alt="png"></p>
 <pre><code>********************************************************************************
 Negative anchors:
-3 negative anchors!</code></pre><p><img src="output_26_7.png" alt="png"></p>
-<pre><code>2 negative anchors!</code></pre><p><img src="output_26_9.png" alt="png"></p>
-<pre><code>3 negative anchors!</code></pre><p><img src="output_26_11.png" alt="png"></p>
+3 negative anchors!</code></pre><p><img src="source/images/output_26_7.png" alt="png"></p>
+<pre><code>2 negative anchors!</code></pre><p><img src="source/images/output_26_9.png" alt="png"></p>
+<pre><code>3 negative anchors!</code></pre><p><img src="source/images/output_26_11.png" alt="png"></p>
 <h2 id="Proposal-module"><a href="#Proposal-module" class="headerlink" title="Proposal module"></a>Proposal module</h2><p>Similar to the Prediction Networks in A5-1, but for RPN we only need to predict the object proposal scores (from the <em>cls</em> layer) and bounding box offsets (from the <em>reg</em> layer), all of which are class-agnostic.</p>
 <p><img src="https://miro.medium.com/max/918/1*wB3ctS9WGNmw6pP_kjLjgg.png" alt="pred_scores2"></p>
 <p>Note that here $k$ is essentially $A$. Image credit: Ren et al, “Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks”, NeurIPS 2015, <a href="https://arxiv.org/abs/1506.01497" target="_blank" rel="noopener">https://arxiv.org/abs/1506.01497</a></p>
@@ -777,7 +777,7 @@ number of pos proposals:  50
 (Epoch 198 / 200) loss: 2.2378 time per epoch: 0.1s
 number of pos proposals:  50
 (Iter 0 / 1)
-(Epoch 199 / 200) loss: 2.7982 time per epoch: 0.1s</code></pre><p><img src="output_43_5.png" alt="png"></p>
+(Epoch 199 / 200) loss: 2.7982 time per epoch: 0.1s</code></pre><p><img src="source/images/output_43_5.png" alt="png"></p>
 <h2 id="RPN-Inference"><a href="#RPN-Inference" class="headerlink" title="RPN - Inference"></a>RPN - Inference</h2><p>We will now visualize the predicted boxes from the RPN that we overfit to a small training sample. We will reuse the <code>DetectionInference</code> function from the previous notebook.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RPNInference = DetectionInference</span><br></pre></td></tr></table></figure>
 
@@ -785,16 +785,16 @@ number of pos proposals:  50
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># visualize the output from the overfitted model on small dataset</span></span><br><span class="line"><span class="comment"># the bounding boxes should be really accurate</span></span><br><span class="line"><span class="comment"># ignore the dummy object class (in blue) as RPN does not output class!</span></span><br><span class="line">RPNInference(rpn, small_train_loader, small_dataset, idx_to_class, thresh=<span class="number">0.8</span>, nms_thresh=<span class="number">0.3</span>)</span><br></pre></td></tr></table></figure>
 
 
-<p><img src="output_46_0.png" alt="png"></p>
-<p><img src="output_46_1.png" alt="png"></p>
-<p><img src="output_46_2.png" alt="png"></p>
-<p><img src="output_46_3.png" alt="png"></p>
-<p><img src="output_46_4.png" alt="png"></p>
-<p><img src="output_46_5.png" alt="png"></p>
-<p><img src="output_46_6.png" alt="png"></p>
-<p><img src="output_46_7.png" alt="png"></p>
-<p><img src="output_46_8.png" alt="png"></p>
-<p><img src="output_46_9.png" alt="png"></p>
+<p><img src="source/images/output_46_0.png" alt="png"></p>
+<p><img src="source/images/output_46_1.png" alt="png"></p>
+<p><img src="source/images/output_46_2.png" alt="png"></p>
+<p><img src="source/images/output_46_3.png" alt="png"></p>
+<p><img src="source/images/output_46_4.png" alt="png"></p>
+<p><img src="source/images/output_46_5.png" alt="png"></p>
+<p><img src="source/images/output_46_6.png" alt="png"></p>
+<p><img src="source/images/output_46_7.png" alt="png"></p>
+<p><img src="source/images/output_46_8.png" alt="png"></p>
+<p><img src="source/images/output_46_9.png" alt="png"></p>
 <pre><code>Total inference time: 3.0s</code></pre><h1 id="Faster-R-CNN"><a href="#Faster-R-CNN" class="headerlink" title="Faster R-CNN"></a>Faster R-CNN</h1><p>We have implemented the first half of Faster R-CNN, i.e., RPN, which is class-agnostic. Here, we briefly describe the second half Fast R-CNN.</p>
 <p>Given the proposals or region of interests (RoI) from RPN, we warp each region from CNN activation map to a fixed size 2x2 by using <a href="https://arxiv.org/pdf/1703.06870.pdf" target="_blank" rel="noopener">RoI Align</a>. Essentially, the RoI feature is determined by bilinear interpolation over the CNN activation map. We meanpool the RoI feature over the spatial dimension (2x2).</p>
 <p>Finally, we classify the meanpooled RoI feature into class probabilities.</p>
@@ -1408,20 +1408,20 @@ number of pos proposals:  50
 (Epoch 198 / 200) loss: 3.9051 time per epoch: 0.2s
 number of pos proposals:  50
 (Iter 0 / 1)
-(Epoch 199 / 200) loss: 3.3033 time per epoch: 0.1s</code></pre><p><img src="output_52_1.png" alt="png"></p>
+(Epoch 199 / 200) loss: 3.3033 time per epoch: 0.1s</code></pre><p><img src="source/images/output_52_1.png" alt="png"></p>
 <h3 id="Inference"><a href="#Inference" class="headerlink" title="Inference"></a>Inference</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># visualize the output from the overfitted model on small dataset</span></span><br><span class="line"><span class="comment"># the bounding boxes should be really accurate</span></span><br><span class="line">DetectionInference(detector, small_train_loader, small_dataset, idx_to_class, thresh=<span class="number">0.8</span>, nms_thresh=<span class="number">0.3</span>)</span><br></pre></td></tr></table></figure>
 
 
-<p><img src="output_54_0.png" alt="png"></p>
-<p><img src="output_54_1.png" alt="png"></p>
-<p><img src="output_54_2.png" alt="png"></p>
-<p><img src="output_54_3.png" alt="png"></p>
-<p><img src="output_54_4.png" alt="png"></p>
-<p><img src="output_54_5.png" alt="png"></p>
-<p><img src="output_54_6.png" alt="png"></p>
-<p><img src="output_54_7.png" alt="png"></p>
-<p><img src="output_54_8.png" alt="png"></p>
-<p><img src="output_54_9.png" alt="png"></p>
+<p><img src="source/images/output_54_0.png" alt="png"></p>
+<p><img src="source/images/output_54_1.png" alt="png"></p>
+<p><img src="source/images/output_54_2.png" alt="png"></p>
+<p><img src="source/images/output_54_3.png" alt="png"></p>
+<p><img src="source/images/output_54_4.png" alt="png"></p>
+<p><img src="source/images/output_54_5.png" alt="png"></p>
+<p><img src="source/images/output_54_6.png" alt="png"></p>
+<p><img src="source/images/output_54_7.png" alt="png"></p>
+<p><img src="source/images/output_54_8.png" alt="png"></p>
+<p><img src="source/images/output_54_9.png" alt="png"></p>
 <pre><code>Total inference time: 3.0s</code></pre><h2 id="Train-a-net"><a href="#Train-a-net" class="headerlink" title="Train a net"></a>Train a net</h2><p>Now it’s time to train the full Faster R-CNN model on a larger subset of the the training data. We will train for 50 epochs; this should take about 35 minutes on a K80 GPU. We should see a total loss less than 3.0.</p>
 <p>(Optional) If we train the model longer (e.g., 100 epochs), we should see a better mAP. But make sure we revert the code back for grading purposes.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># monitor the training loss</span></span><br><span class="line">train_loader = pascal_voc2007_loader(train_dataset, <span class="number">100</span>) <span class="comment"># a new loader</span></span><br><span class="line"></span><br><span class="line">num_epochs = <span class="number">50</span></span><br><span class="line">lr = <span class="number">5e-3</span></span><br><span class="line">frcnn_detector = TwoStageDetector()</span><br><span class="line">DetectionSolver(frcnn_detector, train_loader, learning_rate=lr, num_epochs=num_epochs)</span><br></pre></td></tr></table></figure>
@@ -3975,22 +3975,22 @@ number of pos proposals:  359
 (Iter 23 / 25)
 number of pos proposals:  376
 (Iter 24 / 25)
-(Epoch 49 / 50) loss: 2.2144 time per epoch: 31.8s</code></pre><p><img src="output_56_1.png" alt="png"></p>
+(Epoch 49 / 50) loss: 2.2144 time per epoch: 31.8s</code></pre><p><img src="source/images/output_56_1.png" alt="png"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># (optional) load/save checkpoint</span></span><br><span class="line"><span class="comment"># torch.save(frcnn_detector.state_dict(), 'frcnn_detector.pt') # uncomment to save your checkpoint</span></span><br><span class="line"><span class="comment"># frcnn_detector.load_state_dict(torch.load('frcnn_detector.pt')) # uncomment to load your previous checkpoint</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="Inference-1"><a href="#Inference-1" class="headerlink" title="Inference"></a>Inference</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># visualize the same output from the model trained on the entire training set</span></span><br><span class="line"><span class="comment"># some bounding boxes might not make sense</span></span><br><span class="line">DetectionInference(frcnn_detector, small_train_loader, small_dataset, idx_to_class)</span><br></pre></td></tr></table></figure>
 
 
-<p><img src="output_59_0.png" alt="png"></p>
-<p><img src="output_59_1.png" alt="png"></p>
-<p><img src="output_59_2.png" alt="png"></p>
-<p><img src="output_59_3.png" alt="png"></p>
-<p><img src="output_59_4.png" alt="png"></p>
-<p><img src="output_59_5.png" alt="png"></p>
-<p><img src="output_59_6.png" alt="png"></p>
-<p><img src="output_59_7.png" alt="png"></p>
-<p><img src="output_59_8.png" alt="png"></p>
-<p><img src="output_59_9.png" alt="png"></p>
+<p><img src="source/images/output_59_0.png" alt="png"></p>
+<p><img src="source/images/output_59_1.png" alt="png"></p>
+<p><img src="source/images/output_59_2.png" alt="png"></p>
+<p><img src="source/images/output_59_3.png" alt="png"></p>
+<p><img src="source/images/output_59_4.png" alt="png"></p>
+<p><img src="source/images/output_59_5.png" alt="png"></p>
+<p><img src="source/images/output_59_6.png" alt="png"></p>
+<p><img src="source/images/output_59_7.png" alt="png"></p>
+<p><img src="source/images/output_59_8.png" alt="png"></p>
+<p><img src="source/images/output_59_9.png" alt="png"></p>
 <pre><code>Total inference time: 3.2s</code></pre><h2 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h2><p>Compute mean Average Precision (mAP). Introduction on mAP see lecture slides (p46-57): <a href="https://web.eecs.umich.edu/~justincj/slides/eecs498/498_FA2019_lecture15.pdf" target="_blank" rel="noopener">https://web.eecs.umich.edu/~justincj/slides/eecs498/498_FA2019_lecture15.pdf</a></p>
 <p>Run the following to evaluate your detector on the PASCAL VOC validation set. We should see mAP at around 16% or above.</p>
 <p>(Optional) If we train the model longer (e.g., 100 epochs), we should see a better mAP. But make sure we revert the code back for grading purposes.</p>
@@ -6530,8 +6530,8 @@ Total inference time: 38.4s
 9.20% = tvmonitor AP 
 mAP = 13.44%
 &lt;Figure size 640x480 with 1 Axes&gt;</code></pre></div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="2020/05/03/hello-world/">Under maintenance Until May 10</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-05-03</time><div class="content"><p>…</p>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="2020/05/02/application-security/">Application Security</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-05-02</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="categories/Projects/">Projects</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="tags/Security/">Security</a></span><div class="content"></div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="2020/05/02/web-security/">Web Security</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-05-02</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="categories/Projects/">Projects</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="tags/Security/">Security</a></span><div class="content"></div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="2020/05/02/network-security/">Network Security</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-05-02</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="categories/Projects/">Projects</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="tags/Security/">Security</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="tags/Network/">Network</a></span><div class="content"></div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="2020/05/02/cloud-storage/">Build Private Cloud Storage Services using Raspberry Pi</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-05-02</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="categories/Projects/">Projects</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="tags/System/">System</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="tags/Raspberry-Pi/">Raspberry Pi</a></span><div class="content"><p>$1+1^2 = 2$</p>
-</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="2013/11/06/cryptography-security/">Cryptography Security</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2013-11-06</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="categories/Projects/">Projects</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="tags/Security/">Security</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="tags/Cryptography/">Cryptography</a></span><div class="content"></div><hr></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2016 - 2020 By Jiajun (Jayson) Bao</div><div class="framework-info"><span>Powered by : </span><a href="https://reactjs.org/" target="_blank" rel="noopener"><span>React</span></a><span class="footer-separator">|</span><span>Theme - </span><a href="https://www.cmu.edu/brand/brand-guidelines/visual-identity/colors.html" target="_blank" rel="noopener"><span>Carnegie Red</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.7.0"></script><script src="/js/fancybox.js?version=1.7.0"></script><script src="/js/sidebar.js?version=1.7.0"></script><script src="/js/copy.js?version=1.7.0"></script><script src="/js/fireworks.js?version=1.7.0"></script><script src="/js/transition.js?version=1.7.0"></script><script src="/js/scroll.js?version=1.7.0"></script><script src="/js/head.js?version=1.7.0"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="2020/05/02/cloud-storage/">Build Private Cloud Storage Services using Raspberry Pi</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-05-02</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="categories/Projects/">Projects</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="tags/System/">System</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="tags/Raspberry-Pi/">Raspberry Pi</a></span><div class="content"><p>$1+1^2 = 2$</p>
+</div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="2020/05/02/application-security/">Application Security</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-05-02</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="categories/Projects/">Projects</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="tags/Security/">Security</a></span><div class="content"></div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="2020/05/02/web-security/">Web Security</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-05-02</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="categories/Projects/">Projects</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="tags/Security/">Security</a></span><div class="content"></div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="2020/05/02/network-security/">Network Security</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-05-02</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="categories/Projects/">Projects</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="tags/Security/">Security</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="tags/Network/">Network</a></span><div class="content"></div><hr></div><div class="recent-post-item article-container"><a class="article-title" href="2013/11/06/cryptography-security/">Cryptography Security</a><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2013-11-06</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="categories/Projects/">Projects</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="tags/Security/">Security</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="tags/Cryptography/">Cryptography</a></span><div class="content"></div><hr></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2016 - 2020 By Jiajun (Jayson) Bao</div><div class="framework-info"><span>Powered by : </span><a href="https://reactjs.org/" target="_blank" rel="noopener"><span>React</span></a><span class="footer-separator">|</span><span>Theme - </span><a href="https://www.cmu.edu/brand/brand-guidelines/visual-identity/colors.html" target="_blank" rel="noopener"><span>Carnegie Red</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.7.0"></script><script src="/js/fancybox.js?version=1.7.0"></script><script src="/js/sidebar.js?version=1.7.0"></script><script src="/js/copy.js?version=1.7.0"></script><script src="/js/fireworks.js?version=1.7.0"></script><script src="/js/transition.js?version=1.7.0"></script><script src="/js/scroll.js?version=1.7.0"></script><script src="/js/head.js?version=1.7.0"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
   $('#top-container').addClass('is-mobile')
